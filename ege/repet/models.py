@@ -33,38 +33,38 @@ class Test(models.Model):
         return self.name
 
 class Student(models.Model):
-    full_name = models.CharField(max_length=200,blank=True,null=True)
+    full_name = models.CharField(max_length=200,blank=True,default='')
     phone = models.CharField(max_length=200)#TODO
-    email = models.EmailField(blank=True,null=True)
-    address = models.CharField(max_length=200,blank=True,null=True)#Привязать выбор
-    parent_name = models.CharField(max_length=200,blank=True,null=True)
-    parent_phone = models.CharField(max_length=200,blank=True,null=True)#TODO
+    email = models.EmailField(blank=True,default='')
+    address = models.CharField(max_length=200,blank=True,default='')#Привязать выбор
+    parent_name = models.CharField(max_length=200,blank=True,default='')
+    parent_phone = models.CharField(max_length=200,blank=True,default='')#TODO
     def __str__(self):
         return self.phone
 
 
 class Teacher(models.Model):
     qualifications  =  (('A','Category A'),('B','Category B'),('C','Category C'))
-    full_name = models.CharField(max_length=200,blank=True)
+    full_name = models.CharField(max_length=200,blank=True,default='')
     phone = models.CharField(max_length=200)#TODO
-    email = models.EmailField(blank=True)
-    address = models.CharField(max_length=200,blank=True)#Привязать выбор
-    qualification = models.CharField(max_length=1,choices=qualifications,blank=True)#TODO
+    email = models.EmailField(blank=True,default='')
+    address = models.CharField(max_length=200,blank=True,default='')#Привязать выбор
+    qualification = models.CharField(max_length=1,choices=qualifications,blank=True,default='')#TODO
     def __str__(self):
         return self.full_name
 
 
 class Schedule(models.Model):
-    student = models.ForeignKey(Student,on_delete=models.CASCADE)
-    monday = models.TimeField(blank=True)
-    tuesday = models.TimeField(blank=True)
-    wednesday = models.TimeField(blank=True)
-    thursday = models.TimeField(blank=True)
-    friday = models.TimeField(blank=True)
-    saturday = models.TimeField(blank=True)
-    sunday = models.TimeField(blank=True)
+    student = models.OneToOneField(Student,on_delete=models.CASCADE)
+    monday = models.TimeField(blank=True,null=True)
+    tuesday = models.TimeField(blank=True,null=True)
+    wednesday = models.TimeField(blank=True,null=True)
+    thursday = models.TimeField(blank=True,null=True)
+    friday = models.TimeField(blank=True,null=True)
+    saturday = models.TimeField(blank=True,null=True)
+    sunday = models.TimeField(blank=True,null=True)
 
 
     def __str__(self):
-        return self.student
+        return self.student.full_name
 
