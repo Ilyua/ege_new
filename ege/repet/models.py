@@ -6,10 +6,15 @@ class Course(models.Model):
 
     def __str__(self):
         return self.name
+class CoursePart(models.Model):
+    name = models.CharField(max_length=200)
+    course = models.ForeignKey(Course,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
 
 class Theme(models.Model):
     name = models.CharField(max_length=200)
-    course = models.ForeignKey(Course,on_delete=models.CASCADE)
+    course_part = models.ForeignKey(Course,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
